@@ -265,6 +265,13 @@ setMethod(f = "get_signatures",
 				row_km_fit = object@.env[[nm]]$row_km_fit_unscaled
 			}
 
+			if(nrow(mat_for_km) > 5000) {
+				set.seed(seed)
+				mat_for_km2 = mat_for_km[sample(nrow(mat_for_km), 5000), , drop = FALSE]
+			} else {
+				mat_for_km2 = mat_for_km
+			}
+
 			if(!is.null(row_km_fit)) {
 				if(is.null(row_km) || identical(as.integer(row_km), length(row_km_fit$size))) {
 					returned_obj$km = apply(pdist(row_km_fit$centers, mat_for_km), 2, which.min)
@@ -275,15 +282,19 @@ setMethod(f = "get_signatures",
 			if(do_kmeans) {
 				set.seed(seed)
 				if(is.null(row_km)) {
-					wss = (nrow(mat_for_km)-1)*sum(apply(mat_for_km,2,var))
+					wss = (nrow(mat_for_km2)-1)*sum(apply(mat_for_km2,2,var))
 					max_km = min(c(nrow(mat_for_km) - 1, 15))
-					for (i in 2:max_km) wss[i] = sum(kmeans(mat_for_km, centers = i, iter.max = 50)$withinss)
+					# if(verbose) qqcat("* apply k-means on rows with 2~@{max_km} clusters.\n")
+					for (i in 2:max_km) {
+						# if(verbose) qqcat("  - applying k-means with @{i} clusters.\n")
+						wss[i] = sum(kmeans(mat_for_km2, centers = i, iter.max = 50)$withinss)
+					}
 					row_km = min(elbow_finder(1:max_km, wss)[1], knee_finder(1:max_km, wss)[1])
 					if(length(unique(class)) == 1) row_km = 1
 					if(length(unique(class)) == 2) row_km = min(row_km, 2)
 				}
 				if(row_km > 1) {
-					row_km_fit = kmeans(mat_for_km, centers = row_km)
+					row_km_fit = kmeans(mat_for_km2, centers = row_km)
 					returned_obj$km = apply(pdist(row_km_fit$centers, mat_for_km), 2, which.min)
 					if(scale_rows) {
 						object@.env[[nm]]$row_km_fit_scaled = row_km_fit
@@ -414,7 +425,6 @@ setMethod(f = "get_signatures",
 		if(is.null(anno)) {
 			bottom_anno2 = NULL
 		} else {
-
 			anno_col = lapply(bottom_anno1@anno_list, function(anno) {
 				if(is.null(anno@color_mapping)) {
 					return(NULL)
@@ -430,7 +440,10 @@ setMethod(f = "get_signatures",
 			anno_col = anno_col[!sapply(anno_col, is.null)]
 
 			if(!is.null(object@anno_col)) {
-				anno_col[names(object@anno_col)] = object@anno_col
+				nmd = setdiff(names(object@anno_col), names(anno_col))
+				if(length(nmd)) {
+					anno_col[nmd] = object@anno_col[nmd]
+				}
 			}
 
 			bottom_anno2 = HeatmapAnnotation(df = anno[!column_used_logical, , drop = FALSE], col = anno_col,
@@ -450,7 +463,7 @@ setMethod(f = "get_signatures",
 			row_km_fit = object@.env[[nm]]$row_km_fit_unscaled
 		}
 		if(!is.null(row_km_fit)) {
-			row_split = factor(row_km_fit$cluster[row_index], levels = sort(unique(row_km_fit$cluster[row_index])))
+			row_split = factor(returned_obj$km[row_index], levels = sort(unique(returned_obj$km[row_index])))
 		}
 	}
 

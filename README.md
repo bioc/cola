@@ -1,13 +1,10 @@
-<img src="https://user-images.githubusercontent.com/449218/54158555-03e3af80-444b-11e9-9773-070823101263.png" width=250 align="right" style="border:4px solid black;" />
+# cola: A General Framework for Consensus Partitioning <img src="https://user-images.githubusercontent.com/449218/54158555-03e3af80-444b-11e9-9773-070823101263.png" width=250 align="right" style="border:4px solid black;" />
 
 
 [![Build Status](https://travis-ci.org/jokergoo/cola.svg)](https://travis-ci.org/jokergoo/cola) 
 [ ![bioc](https://bioconductor.org/shields/downloads/devel/cola.svg) ](http://bioconductor.org/packages/stats/bioc/cola)
 [ ![bioc](http://bioconductor.org//shields/lastcommit/devel/bioc/cola.svg) ](http://bioconductor.org/checkResults/devel/bioc-LATEST/cola/)
 
-# cola
-
-A General Framework for Consensus Partitioning
 
 ## Features
 
@@ -22,31 +19,36 @@ A General Framework for Consensus Partitioning
 
 ## Install
 
-`cola` is available on [Bioconductor](http://bioconductor.org/packages/devel/bioc/html/cola.html), you can install it by:
+*cola* is available on [Bioconductor](http://bioconductor.org/packages/devel/bioc/html/cola.html), you can install it by:
 
 ```r
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-BiocManager::install("cola", version = "3.9")
+BiocManager::install("cola")
 ```
 
-If you want to try the latest version, install it directly from GitHub:
+The latest version can be installed directly from GitHub:
 
 ```r
 library(devtools)
 install_github("jokergoo/cola")
 ```
 
-## Examples
+## Links
 
-Several examples for cola analysis can be found at https://jokergoo.github.io/cola_examples/.
+Examples for *cola* analysis can be found at https://jokergoo.github.io/cola_examples/ and https://jokergoo.github.io/cola_collection/.
+
+Online documentation is at https://jokergoo.github.io/cola.
+
+Supplementary for the *cola* manuscript is at https://jokergoo.github.io/cola_supplementary and the scripts are at https://jokergoo.github.io/cola_manuscript.
 
 ## Vignettes
 
 1. [A Quick Start of Using cola Package](http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/a_quick_start.html)
 2. [A Framework for Consensus Partitioning](http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html)
+3. [Automatic Functional Enrichment on Signature genes](http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html)
 
-## Consensus Partition
+## Consensus Partitioning
 
 <img width="700" src="https://user-images.githubusercontent.com/449218/52628723-86af3400-2eb8-11e9-968d-b7f47a408818.png" />
 
@@ -76,10 +78,10 @@ The steps of consensus partition is:
 
 ### Usage
 
-Three lines of code to perfrom cola analysis:
+Three lines of code to perfrom *cola* analysis:
 
 ```r
-mat = adjust_matrix(mat)
+mat = adjust_matrix(mat) # optional
 rl = run_all_consensus_partition_methods(
     mat, 
     top_value_method = c("sd", "MAD", ...),
