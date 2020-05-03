@@ -1,7 +1,7 @@
 Package: cola
 Type: Package
 Title: A Framework for Consensus Partitioning
-Version: 1.4.0
+Version: 1.4.1
 Date: 2020-02-06
 Author: Zuguang Gu
 Maintainer: Zuguang Gu <z.gu@dkfz.de>
@@ -11,7 +11,7 @@ Imports: grDevices,
          grid, 
          stats, 
          utils,
-         ComplexHeatmap (>= 2.0.0), 
+         ComplexHeatmap (>= 2.4.2), 
          matrixStats, 
          GetoptLong, 
          circlize (>= 0.4.7), 
