@@ -1,8 +1,8 @@
 Package: cola
 Type: Package
 Title: A Framework for Consensus Partitioning
-Version: 2.9.1
-Date: 2024-02-26
+Version: 2.13.1
+Date: 2025-02-06
 Authors@R: person("Zuguang", "Gu", email = "z.gu@dkfz.de", role = c("aut", "cre"),
                   comment = c('ORCID'="0000-0002-7395-8709"))
 Depends: R (>= 4.0.0)
@@ -12,7 +12,7 @@ Imports: grDevices,
          stats, 
          utils,
          ComplexHeatmap (>= 2.5.4), 
-         matrixStats, 
+         matrixStats (>= 1.2.0), 
          GetoptLong, 
          circlize (>= 0.4.7), 
          GlobalOptions (>= 0.1.0),

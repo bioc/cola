@@ -18,6 +18,9 @@ This message can be suppressed by:
 ")	
 
     packageStartupMessage(msg)
+
+    r1()
+    r2()
 }
 
 utils::globalVariables(c("ind", "x"))

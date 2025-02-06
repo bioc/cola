@@ -1,3 +1,6 @@
+Changes in version 2.13.1
++ register functions are put inside `.onAttach()`
+
 Changes in version 2.5.4
 + adapt the code with markdown v1.6
 
