@@ -106,16 +106,18 @@ all_top_value_methods = function() {
 	.ENV$ALL_TOP_VALUE_METHODS
 }
 
+
 register_top_value_methods(
-	SD = matrixStats::rowSds,
+	SD = function(mat) matrixStats::rowSds(mat),
 	CV = function(mat) {
 		s = rowMeans(mat)
 		matrixStats::rowSds(mat)/(s + quantile(s, 0.1))
 	},
-	MAD = matrixStats::rowMads,
-	ATC = ATC,
+	MAD = function(mat) matrixStats::rowMads(mat),
+	ATC = function(mat) ATC(mat),
 	validate = FALSE
 )
+
 
 register_ATC_kNN = function(k_neighbours = 20, cores = 1) {
 	k_neighbours = k_neighbours
@@ -402,6 +404,7 @@ register_partition_methods(
 	# 	group
 	# }
 )
+
 
 # == title
 # Register NMF partitioning method
