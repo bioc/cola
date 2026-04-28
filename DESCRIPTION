@@ -1,7 +1,7 @@
 Package: cola
 Type: Package
 Title: A Framework for Consensus Partitioning
-Version: 2.18.0
+Version: 2.19.0
 Date: 2026-01-30
 Authors@R: person("Zuguang", "Gu", email = "guzuguang@suat-sz.edu.cn", role = c("aut", "cre"),
                   comment = c('ORCID'="0000-0002-7395-8709"))
